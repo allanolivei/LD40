@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody))]
 public class Bullet : MonoBehaviour 
 {
 
 	public float speed = 100.0f;
 	public float lifeDuration = 4.0f;
 
+	[System.NonSerialized]
 	public Ammunition ammunition;
 
-	private Rigidbody2D body;
+	private Rigidbody body;
 	private Transform trans;
 
 
@@ -22,11 +23,8 @@ public class Bullet : MonoBehaviour
 		if( body == null ) 
 			this.RecoveryCache ();
 		
-		trans.position = (Vector2)position;
-		trans.rotation = Quaternion.AngleAxis(
-			Mathf.Atan2 (direction.x , -direction.y) * Mathf.Rad2Deg - 90,
-			Vector3.forward
-		);
+		trans.position = position;
+		trans.rotation = Quaternion.LookRotation (direction, Vector3.up);
 	}
 
 	private void Awake()
@@ -36,19 +34,18 @@ public class Bullet : MonoBehaviour
 
 	private void RecoveryCache()
 	{
-		body = GetComponent<Rigidbody2D> ();
+		body = GetComponent<Rigidbody> ();
 		trans = GetComponent<Transform> ();
 	}
 
 	private void OnEnable()
 	{
-		StartCoroutine ("WaitingLifeTime");
+		//StartCoroutine ("WaitingLifeTime");
 	}
 
-	private void Update()
+	private void FixedUpdate()
 	{
-		float rad = body.rotation * Mathf.Deg2Rad;
-		body.velocity = new Vector2 (Mathf.Cos (rad), Mathf.Sin (rad)) * speed * Time.deltaTime;
+		body.velocity =  trans.forward * speed * Time.deltaTime;
 	}
 
 	private void OnCollisionEnter2D( Collision2D other )

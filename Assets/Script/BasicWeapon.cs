@@ -17,7 +17,7 @@ public class BasicWeapon : Weapon
 		}
 
 		Bullet bullet = munition.GetBullet ();
-		bullet.SetData (spawnPoint.position, this.transform.up);
+		bullet.SetData (spawnPoint.position, this.transform.forward);
 	}
 
 }
