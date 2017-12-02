@@ -1,22 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(CharacterController), typeof(VitalityComponent))]
 public class PlayerController : MonoBehaviour
 {
 
+	public static PlayerController current;
+
     public float moveSpeed = 2.0f;
-	public Vitality vitality;
 	public float smoothRotation = 16.0f;
     
 
     [SerializeField]
     private Weapon defaultWeapon;
 
+	[System.NonSerialized, HideInInspector]
+	public CharacterController controller;
+	[System.NonSerialized, HideInInspector]
+	public Transform trans;
+	[System.NonSerialized, HideInInspector]
+	public VitalityComponent vitality;
+
     private Weapon currentWeapon;
-	private CharacterController controller;
-	private Transform trans;
 	private Camera cam;
 
 	public void Aim( Vector3 direction )
@@ -27,15 +34,17 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+		current = this;
+
         if (defaultWeapon == null)
             throw new System.Exception("Nenhuma arma inicial configurada.");
 
 		this.RecoveryCache ();
+		this.vitality.onDeath.AddListener (OnDeathHandler);
     }
 
 	private void Update()
 	{
-		//this.MoveRotation ();
 		if( Input.GetButton("Fire1") ) currentWeapon.Fire();
 	}
 
@@ -44,10 +53,17 @@ public class PlayerController : MonoBehaviour
 		this.MovePosition ();
 	}
 
+	private void OnTriggerStay( Collider other )
+	{
+		if (other.tag == "AlienBlood") 
+			this.vitality.TakeDamage (4 * Time.deltaTime, this.trans.position);
+	}
+
 	private void RecoveryCache()
 	{
 		controller = GetComponent<CharacterController>();
 		trans = GetComponent<Transform> ();
+		vitality = GetComponent<VitalityComponent> ();
 		cam = Camera.main;
 		currentWeapon = defaultWeapon;
 	}
@@ -56,8 +72,11 @@ public class PlayerController : MonoBehaviour
 	{
 		float horizontal = Input.GetAxis("Horizontal");
 		float vertical = Input.GetAxis("Vertical");
-		//body.velocity = new Vector3(horizontal, vertical, 0) * moveSpeed * Time.deltaTime;
 		controller.Move( new Vector3(horizontal, 0, vertical) * moveSpeed * Time.deltaTime );
+
+		// *FIX y
+		Vector3 pos = this.trans.position; pos.y = 0;
+		this.trans.position = pos;
 	}
 
 	/*
@@ -70,6 +89,11 @@ public class PlayerController : MonoBehaviour
 		body.rotation = angle;
 	}
 	*/
+
+	private void OnDeathHandler()
+	{
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+	}
 
 	private Vector2 GetAimPoint()
 	{

@@ -7,7 +7,7 @@ using Cinemachine;
 public class CameraController : MonoBehaviour
 {
 	public PlayerController player;
-	public float smoothAimMovement = 7.0f;
+	public float smoothAimMovement = 10.0f;
 
 	//private CinemachineVirtualCamera cam;
 	private Camera cam;
@@ -68,10 +68,10 @@ public class CameraController : MonoBehaviour
 		Vector3 aimMovement = new Vector3( 
 			(Input.mousePosition.x - halfScreen.x)/halfScreen.x, 0, 
 			(Input.mousePosition.y - halfScreen.y)/halfScreen.y 
-		);
+		) * 1.4f;
+		lastAimMovement = Vector3.Lerp(lastAimMovement, aimMovement, smoothAimMovement * Time.deltaTime);;
 		Vector3 position = playerTrans.position + new Vector3 (0,5.0f,0);
-		this.trans.position = position + Vector3.Lerp(lastAimMovement, aimMovement, smoothAimMovement * Time.deltaTime);
-		lastAimMovement = aimMovement;
+		this.trans.position = position + lastAimMovement;
 
 		this.player.Aim ( this.GetAimDirection() );
 	}

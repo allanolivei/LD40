@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
 {
 
 	public float speed = 100.0f;
+	public float damage = 10.0f;
 	public float lifeDuration = 4.0f;
 
 	[System.NonSerialized]
@@ -40,7 +41,7 @@ public class Bullet : MonoBehaviour
 
 	private void OnEnable()
 	{
-		//StartCoroutine ("WaitingLifeTime");
+		StartCoroutine ("WaitingLifeTime");
 	}
 
 	private void FixedUpdate()
@@ -48,8 +49,12 @@ public class Bullet : MonoBehaviour
 		body.velocity =  trans.forward * speed * Time.deltaTime;
 	}
 
-	private void OnCollisionEnter2D( Collision2D other )
+	private void OnCollisionEnter( Collision other )
 	{
+		VitalityComponent vitality = other.gameObject.GetComponent<VitalityComponent> ();
+		if (vitality != null) 
+			vitality.TakeDamage (damage, other.contacts[0].point);
+
 		if (ammunition != null) ammunition.Recycle (this);
 	}
 
