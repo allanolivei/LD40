@@ -1,0 +1,14 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d9d61c25d2ad684485b1c12c389c9d6, type: 3}
+  m_Name: AmmunitionShotgun
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 114578485113185808, guid: 3b21964a267465d4892c181af7b19a7d, type: 2}

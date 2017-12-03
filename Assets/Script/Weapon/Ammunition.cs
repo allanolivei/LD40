@@ -7,11 +7,19 @@ public class Ammunition : ScriptableObject
 {
 	public Bullet prefab;
 
-	private Stack<Bullet> pooling = new Stack<Bullet> ();
+	private List<Bullet> pooling = new List<Bullet> ();
 
 	public Bullet GetBullet()
 	{
-		Bullet bullet = (pooling.Count > 0) ? pooling.Pop () : Instantiate<Bullet> (prefab);
+		Bullet bullet = null;
+		if (pooling.Count > 0) 
+		{
+			bullet = pooling [0];
+			pooling.RemoveAt (0);
+		}
+		else 
+			bullet = Instantiate<Bullet> (prefab);
+
 		bullet.gameObject.SetActive (true);
 		bullet.ammunition = this;
 		return bullet;
@@ -20,7 +28,14 @@ public class Ammunition : ScriptableObject
 	public void Recycle( Bullet bullet )
 	{
 		bullet.gameObject.SetActive (false);
-		pooling.Push (bullet);
+		pooling.Add (bullet);
+	}
+
+	public void Validate()
+	{
+		for (var i = this.pooling.Count-1; i >= 0; i--)
+			if (this.pooling [i] == null)
+				this.pooling.RemoveAt (i);
 	}
 
 }

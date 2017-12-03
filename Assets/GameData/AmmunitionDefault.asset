@@ -9,6 +9,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d9d61c25d2ad684485b1c12c389c9d6, type: 3}
-  m_Name: Ammo01
+  m_Name: AmmunitionDefault
   m_EditorClassIdentifier: 
   prefab: {fileID: 114578485113185808, guid: 22d32bb9bb37b9b4a9a0536bb7aa1315, type: 2}

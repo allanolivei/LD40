@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Splash
   - AlienBlood
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -48,4 +49,7 @@ TagManager:
     locked: 0
   - name: OverGround
     uniqueID: 1150548767
+    locked: 0
+  - name: Weapon
+    uniqueID: 2893714533
     locked: 0

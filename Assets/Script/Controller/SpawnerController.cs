@@ -11,25 +11,20 @@ public class SpawnerController : MonoBehaviour
 	public struct Wave
 	{
 		public int[] amountByEnemy;
+		public int[] itens;
 	}
 
-
 	public Wave[] waves;
-	public Transform[] spawners;
-	public EnemyController[] enemyPrefabs;
+	public ItemSpawner itemSpawner;
+	public EnemySpawner enemySpawner;
 
 	private int currentSpawner = 0;
-	private UnityObjectPooling<EnemyController>[] pooling;
-	private List<EnemyController> enemies;
 
 	private void Awake()
 	{
-		enemies = new List<EnemyController> ();
-		pooling = new UnityObjectPooling<EnemyController>[enemyPrefabs.Length];
-		for (int i = 0; i < pooling.Length; i++)
-			pooling [i] = new UnityObjectPooling<EnemyController> (enemyPrefabs [i]);
-
 		this.Spawn ();
+
+		this.enemySpawner.OnComplete.AddListener (EnemyCompleteHandler);
 	}
 
 	private void NextSpawn()
@@ -42,52 +37,13 @@ public class SpawnerController : MonoBehaviour
 	{
 		Wave wave = waves [Mathf.Min (currentSpawner, waves.Length - 1)];
 
-		for (var i = 0; i < wave.amountByEnemy.Length; i++) 
-		{
-			for (var j = 0; j < wave.amountByEnemy [i]; j++) 
-			{
-				EnemyController enemy = pooling [i].Get ();
-				enemy.gameObject.SetActive (true);
-				enemy.Spawn (spawners [Random.Range (0, spawners.Length)].position);
-				enemy.GetVitality().onDeath.AddListener (OnDeathEnemy);
-				enemies.Add (enemy);
-			}
-		}
+		enemySpawner.Spawn (wave.amountByEnemy);
+		itemSpawner.Spawn (wave.itens);
 	}
 
-	private void OnDeathEnemy()
+	private void EnemyCompleteHandler()
 	{
-		Debug.Log ("Check is Complete");
-		if ( IsWaveComplete () ) 
-		{
-			Debug.Log ("Is Wave Complete");
-			for (var i = 0; i < enemies.Count; i++) 
-				this.RecycleEnemy ( enemies[i] );
-			enemies.Clear ();
-
-			this.NextSpawn ();
-		}
-	}
-
-	private bool IsWaveComplete()
-	{
-		for (int i = 0; i < enemies.Count; i++) 
-			if ( !enemies [i].GetVitality ().IsDepth () ) return false;
-		return true;
-	}
-
-	private void RecycleEnemy( EnemyController enemy )
-	{
-		enemy.GetVitality ().onDeath.RemoveListener (OnDeathEnemy);
-
-		for (var i = 0; i < pooling.Length; i++) 
-		{
-			if (pooling [i].objectReference.name == enemy.name) 
-			{
-				pooling [i].Recycle (enemy);
-				break;
-			}
-		}
+		this.NextSpawn ();
 	}
 
 
