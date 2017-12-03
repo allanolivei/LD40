@@ -20,7 +20,7 @@ public class SpawnerController : MonoBehaviour
 
 	private int currentSpawner = 0;
 
-	private void Awake()
+	private void Start()
 	{
 		this.Spawn ();
 
