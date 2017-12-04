@@ -7,10 +7,19 @@ public class VitalityComponent : MonoBehaviour
 {
 	public SpriteRenderer splash;
 	public VitalityData data;
+	public Color damageColor;
+	public SpriteRenderer spriteRendererColor;
 	[Header("Use when data is null")]
 	public float initialLife = 100;
+	[Header("Effects")]
+	public ParticleSystem damageEffectPrefab;
+	public ParticleSystem deapthEffectPrefab;
+
 
 	public UnityEvent onDeath;
+
+	private float lastDamageTime;
+	private float lastDamageEffectTime;
 
 	public bool IsDepth()
 	{
@@ -20,10 +29,30 @@ public class VitalityComponent : MonoBehaviour
 	public bool TakeDamage( float value, Vector3 position )
 	{
 		bool result = data.TakeDamage (value);
-		if( result ) onDeath.Invoke ();
 
 		if( splash != null )
 			Instantiate (splash, position, splash.transform.rotation);
+
+
+		if (result) 
+		{
+			onDeath.Invoke ();
+			if( deapthEffectPrefab )
+				ParticleManager.GetInstance ().Show (deapthEffectPrefab.name, position);
+		} 
+		else if( Time.time-lastDamageEffectTime > 0.25f )
+		{
+			if (spriteRendererColor)
+				StartCoroutine ( BlinkColor() );
+
+			if( damageEffectPrefab )
+				ParticleManager.GetInstance ().Show (damageEffectPrefab.name, position);
+
+			lastDamageEffectTime = Time.time;
+		}
+
+		lastDamageTime = Time.time;
+
 
 		return result;
 	}
@@ -35,11 +64,42 @@ public class VitalityComponent : MonoBehaviour
 			this.data = ScriptableObject.CreateInstance<VitalityData> ();
 			this.data.initialLife = initialLife;
 		}
+
+
+		if (damageEffectPrefab != null)
+			ParticleManager.GetInstance ().Register (damageEffectPrefab);
+		if (deapthEffectPrefab != null)
+			ParticleManager.GetInstance ().Register (deapthEffectPrefab);
 	}
 
 	private void OnEnable()
 	{
 		this.data.Reset ();
+	}
+
+	private IEnumerator BlinkColor()
+	{
+		float duration = 0.01f;
+		Color colorA = Color.white;
+		Color colorB = damageColor;
+
+		for (int i = 0; i < 4; i++) 
+		{
+			// anim transition
+			float initTime = Time.time;
+			while (true) 
+			{
+				float percent = Mathf.Min (1.0f, (Time.time - initTime) / duration);
+				spriteRendererColor.color = Color.Lerp (colorA, colorB, percent);
+				if (percent >= 1.0f) break;
+				yield return null;
+			}
+
+			// swapColor
+			Color tempColor = colorA;
+			colorA = colorB;
+			colorB = tempColor;
+		}
 	}
 
 }

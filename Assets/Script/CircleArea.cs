@@ -17,7 +17,7 @@ public class CircleArea : MonoBehaviour
 	}
 
 	#if UNITY_EDITOR
-	private void OnDrawGizmos()
+	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.red;
 		Gizmos.DrawSphere (transform.position, radius);

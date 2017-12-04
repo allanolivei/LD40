@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
 	public float cooldown = 1.0f;
-	public float timeToFinish = int.MaxValue;
 	public Ammunition ammunition;
 	public Transform spawnPoint;
 

@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4464886685483550}
   - component: {fileID: 212266452649291698}
   - component: {fileID: 135229339024486996}
-  m_Layer: 0
+  - component: {fileID: 114313329210809120}
+  m_Layer: 11
   m_Name: Splash
   m_TagString: AlienBlood
   m_Icon: {fileID: 0}
@@ -35,12 +36,32 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1272291910781918}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -4.6241097, y: -0.08079964, z: -0.254621}
+  m_LocalPosition: {x: -4.292, y: 0.261, z: 0.96}
   m_LocalScale: {x: 0.2761901, y: 0.27619013, z: 0.27619013}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &114313329210809120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272291910781918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a324799c6bc45034ab4e0e872dbd0047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 59ec406a95619a1458d23a42fd8d15c6, type: 3}
+  - {fileID: 21300002, guid: 59ec406a95619a1458d23a42fd8d15c6, type: 3}
+  - {fileID: 21300004, guid: 59ec406a95619a1458d23a42fd8d15c6, type: 3}
+  - {fileID: 21300006, guid: 59ec406a95619a1458d23a42fd8d15c6, type: 3}
+  minScale: 0.27
+  maxScale: 0.4
+  minTime: 20
+  maxTime: 20
 --- !u!135 &135229339024486996
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -87,8 +108,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3e7744ee44e9cc345895916f6324b154, type: 3}
-  m_Color: {r: 0.1506532, g: 0.77205884, b: 0.06812286, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 59ec406a95619a1458d23a42fd8d15c6, type: 3}
+  m_Color: {r: 0.3777293, g: 0.9852941, b: 0.29703718, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

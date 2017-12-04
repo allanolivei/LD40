@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private Weapon currentWeapon;
 	private Camera cam;
+	private float currentSpeed;
 
 	/*********************** PUBLIC UTILITIES **********************/
 	public void Aim( Vector3 direction )
@@ -52,6 +53,8 @@ public class PlayerController : MonoBehaviour
     {
 		current = this;
 
+		this.currentSpeed = moveSpeed;
+
 		this.RecoveryCache ();
 		this.vitality.onDeath.AddListener (OnDeathHandler);
 
@@ -68,6 +71,12 @@ public class PlayerController : MonoBehaviour
 		this.MovePosition ();
 	}
 
+	private void OnTriggerExit( Collider other )
+	{
+		if (other.tag == "AlienBlood")
+			currentSpeed = moveSpeed;
+	}
+
 	private void OnTriggerStay( Collider other )
 	{
 		string tag = other.tag;
@@ -75,6 +84,7 @@ public class PlayerController : MonoBehaviour
 		switch (tag) 
 		{
 			case "AlienBlood":
+				this.currentSpeed = moveSpeed * 0.5f;
 				this.vitality.TakeDamage (bloodDamage * Time.deltaTime, this.trans.position);
 			break;
 			case "Item":
@@ -102,7 +112,7 @@ public class PlayerController : MonoBehaviour
 	{
 		float horizontal = Input.GetAxis("Horizontal");
 		float vertical = Input.GetAxis("Vertical");
-		controller.Move( new Vector3(horizontal, 0, vertical) * moveSpeed * Time.deltaTime );
+		controller.Move( new Vector3(horizontal, 0, vertical) * currentSpeed * Time.deltaTime );
 
 		// *FIX y
 		Vector3 pos = this.trans.position; pos.y = 0;
