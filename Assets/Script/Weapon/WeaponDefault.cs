@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WeaponDefault : Weapon 
 {
@@ -8,6 +9,12 @@ public class WeaponDefault : Weapon
 	public ParticleSystem effectShoot;
 	public int numberOfBullet = 1;
 	public float angleBetweenBullet = 0;
+	public float timeToFinish = 0f;
+
+	[HideInInspector, System.NonSerialized]
+	public float initWeaponTime;
+
+	public UnityEvent OnTimeFinish;
 
 	protected override void Shoot ()
 	{
@@ -29,6 +36,16 @@ public class WeaponDefault : Weapon
 	private void OnEnable()
 	{
 		ammunition.Validate ();
+
+		if( timeToFinish > 0.1f )
+			StartCoroutine ("WaitingToFinish");
+		initWeaponTime = Time.time;
+	}
+
+	private IEnumerator WaitingToFinish()
+	{
+		yield return new WaitForSeconds (timeToFinish);
+		OnTimeFinish.Invoke ();
 	}
 
 }

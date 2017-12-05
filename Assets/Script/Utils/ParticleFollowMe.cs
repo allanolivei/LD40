@@ -9,24 +9,17 @@ public class ParticleFollowMe : MonoBehaviour
 	public Vector3 offset;
 
 	private Transform trans;
+	private ParticleSystem ps;
 
 	private void Awake()
 	{
 		trans = GetComponent<Transform> ();
-	}
-
-	private void OnEnable()
-	{
-		
-	}
-
-	private void OnDisable()
-	{
-		
+		ps = GetComponent<ParticleSystem>();
 	}
 
 	private void Update () 
 	{
 		this.trans.position = followTarget.position + offset;
+		if( !followTarget.gameObject.activeInHierarchy ) ps.Stop();
 	}
 }

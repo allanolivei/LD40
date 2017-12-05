@@ -28,7 +28,7 @@ public class VitalityData : ScriptableObject
 
 	public bool TakeDamage( float value )
 	{
-		//life -= value;
+		life -= value;
 		return life < 0;
 	}
 

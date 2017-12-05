@@ -9,6 +9,7 @@ public class VitalityComponent : MonoBehaviour
 	public VitalityData data;
 	public Color damageColor;
 	public SpriteRenderer spriteRendererColor;
+	public float pointsScale = 0.0f;
 	[Header("Use when data is null")]
 	public float initialLife = 100;
 	[Header("Effects")]
@@ -30,10 +31,11 @@ public class VitalityComponent : MonoBehaviour
 	{
 		bool result = data.TakeDamage (value);
 
+		PlayerController.POINTS += Mathf.RoundToInt (value * pointsScale);
+
 		if( splash != null )
 			Instantiate (splash, position, splash.transform.rotation);
-
-
+		
 		if (result) 
 		{
 			onDeath.Invoke ();
@@ -75,6 +77,11 @@ public class VitalityComponent : MonoBehaviour
 	private void OnEnable()
 	{
 		this.data.Reset ();
+	}
+
+	private void OnDisable()
+	{
+		spriteRendererColor.color = Color.white;
 	}
 
 	private IEnumerator BlinkColor()

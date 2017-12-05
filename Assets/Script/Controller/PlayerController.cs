@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(CharacterController), typeof(VitalityComponent))]
 public class PlayerController : MonoBehaviour
 {
+	public static int POINTS = 0;
+
 
 	public static PlayerController current;
 
@@ -24,7 +26,9 @@ public class PlayerController : MonoBehaviour
 	[System.NonSerialized, HideInInspector]
 	public VitalityComponent vitality;
 
-    private Weapon currentWeapon;
+	[System.NonSerialized, HideInInspector]
+    public Weapon currentWeapon;
+
 	private Camera cam;
 	private float currentSpeed;
 
@@ -37,13 +41,19 @@ public class PlayerController : MonoBehaviour
 
 	public void SelectWeapon(int weaponIndex)
 	{
-		if( currentWeapon != null )
+		if (currentWeapon != null) 
+		{
 			currentWeapon.gameObject.SetActive (false);
+			(currentWeapon as WeaponDefault).OnTimeFinish.RemoveListener (WeaponFinishHandler);
+		}
 
 		currentWeapon = weapons[weaponIndex];
 
-		if( currentWeapon != null )
+		if (currentWeapon != null) 
+		{
 			currentWeapon.gameObject.SetActive (true);
+			(currentWeapon as WeaponDefault).OnTimeFinish.AddListener (WeaponFinishHandler);
+		}
 	}
 	/***************************************************************/
 
@@ -60,6 +70,11 @@ public class PlayerController : MonoBehaviour
 
 		this.SelectWeapon (0);
     }
+
+	private void OnEnable()
+	{
+		POINTS = 0;
+	}
 
 	private void Update()
 	{
@@ -121,7 +136,7 @@ public class PlayerController : MonoBehaviour
 
 	private void OnDeathHandler()
 	{
-		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		SceneManager.LoadScene (2);
 	}
 
 	private Vector2 GetAimPoint()
@@ -133,6 +148,11 @@ public class PlayerController : MonoBehaviour
 	private Vector2 GetAimDirection()
 	{
 		return (this.GetAimPoint() - (Vector2)this.trans.position).normalized;
+	}
+
+	private void WeaponFinishHandler()
+	{
+		this.SelectWeapon (0);
 	}
 	/*****************************************************/
 		

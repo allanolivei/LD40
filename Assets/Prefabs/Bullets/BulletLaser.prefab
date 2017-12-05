@@ -199,13 +199,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 470
-  damage: 10
+  damage: 30
   lifeDuration: 4
   damageRadius: 0
   damageMask:
     serializedVersion: 2
     m_Bits: 513
   resistance: 4
+  explosionEffectPrefab: {fileID: 0}
+  trailParticleEffectPrefab: {fileID: 0}
 --- !u!135 &135024270522384536
 SphereCollider:
   m_ObjectHideFlags: 1

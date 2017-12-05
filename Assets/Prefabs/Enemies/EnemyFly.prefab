@@ -209,10 +209,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 0
-  timeToFinish: 2.1474836e+9
   ammunition: {fileID: 11400000, guid: 37f5d6c0526866c4dabc7550bfc14467, type: 2}
   spawnPoint: {fileID: 4746519074390802}
   effectShoot: {fileID: 0}
+  numberOfBullet: 1
+  angleBetweenBullet: 0
+  timeToFinish: 0
+  OnTimeFinish:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114161321374133762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,6 +257,7 @@ MonoBehaviour:
   data: {fileID: 0}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   spriteRendererColor: {fileID: 212879562503567292}
+  pointsScale: 0.5
   initialLife: 100
   damageEffectPrefab: {fileID: 198788858508078722, guid: f9ec055dfa9070443b2dc76609ac8052,
     type: 2}

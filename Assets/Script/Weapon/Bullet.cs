@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 	public float damageRadius = 0.0f;
 	public LayerMask damageMask = -1;
 	public int resistance = 1;
-	public ParticleSystem explosionEffect;
+	public ParticleSystem explosionEffectPrefab;
 	public ParticleSystem trailParticleEffectPrefab;
 
 	[System.NonSerialized]
@@ -44,6 +44,9 @@ public class Bullet : MonoBehaviour
 
 		if (trailParticleEffectPrefab != null)
 			ParticleManager.GetInstance ().Register (trailParticleEffectPrefab);
+
+		if (explosionEffectPrefab != null)
+			ParticleManager.GetInstance ().Register (explosionEffectPrefab);
 	}
 
 	private void RecoveryCache()
@@ -57,6 +60,12 @@ public class Bullet : MonoBehaviour
 	{
 		collisionAmount = 0;
 		StartCoroutine ("WaitingLifeTime");
+
+		if( trailParticleEffectPrefab != null )
+		{
+			ParticleSystem ps = ParticleManager.GetInstance().Show(trailParticleEffectPrefab.name, this.trans.position);
+			ps.GetComponent<ParticleFollowMe>().followTarget = this.trans;
+		}
 	}
 
 	private void FixedUpdate()
@@ -86,6 +95,9 @@ public class Bullet : MonoBehaviour
 					);
 			}
 		}
+
+		if( explosionEffectPrefab != null )
+			ParticleManager.GetInstance ().Show (explosionEffectPrefab.name, this.trans.position);
 
 		collisionAmount++;
 		if (ammunition != null && (resistance <= collisionAmount || vitality == null) ) ammunition.Recycle (this);
