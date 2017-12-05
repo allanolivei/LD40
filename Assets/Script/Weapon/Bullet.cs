@@ -16,6 +16,8 @@ public class Bullet : MonoBehaviour
 	public int resistance = 1;
 	public ParticleSystem explosionEffectPrefab;
 	public ParticleSystem trailParticleEffectPrefab;
+	public AudioClip impactClip;
+	public float impactClipVolume = 1.0f;
 
 	[System.NonSerialized]
 	public Ammunition ammunition;
@@ -95,6 +97,9 @@ public class Bullet : MonoBehaviour
 					);
 			}
 		}
+
+		if (impactClip != null)
+			AudioSource.PlayClipAtPoint (impactClip, Vector3.zero, impactClipVolume);
 
 		if( explosionEffectPrefab != null )
 			ParticleManager.GetInstance ().Show (explosionEffectPrefab.name, this.trans.position);

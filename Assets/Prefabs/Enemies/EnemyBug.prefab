@@ -204,11 +204,12 @@ MonoBehaviour:
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   spriteRendererColor: {fileID: 212785734673194220}
   pointsScale: 1
-  initialLife: 100
+  initialLife: 400
   damageEffectPrefab: {fileID: 198788858508078722, guid: f9ec055dfa9070443b2dc76609ac8052,
     type: 2}
   deapthEffectPrefab: {fileID: 198489227810415892, guid: 02d05d13632656641a428cdeb3f14b70,
     type: 2}
+  damageClip: {fileID: 0}
   onDeath:
     m_PersistentCalls:
       m_Calls: []

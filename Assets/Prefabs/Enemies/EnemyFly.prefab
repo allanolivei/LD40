@@ -215,6 +215,8 @@ MonoBehaviour:
   numberOfBullet: 1
   angleBetweenBullet: 0
   timeToFinish: 0
+  shootClip: {fileID: 0}
+  shootClipVolume: 0.5
   OnTimeFinish:
     m_PersistentCalls:
       m_Calls: []
@@ -263,6 +265,7 @@ MonoBehaviour:
     type: 2}
   deapthEffectPrefab: {fileID: 198823624025915902, guid: 085f1ffc43135614892d9423e2390a6c,
     type: 2}
+  damageClip: {fileID: 0}
   onDeath:
     m_PersistentCalls:
       m_Calls: []

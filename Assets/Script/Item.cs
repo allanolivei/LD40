@@ -18,6 +18,8 @@ public class Item : MonoBehaviour
 	public float rotateSpeed = 10.0f;
 	public UnityEvent OnPickup;
 
+	public AudioClip pickupClip;
+
 	private Transform trans;
 
 	public bool IsPicked()
@@ -34,6 +36,9 @@ public class Item : MonoBehaviour
 	{
 		this.gameObject.SetActive (false);
 		this.OnPickup.Invoke ();
+
+		if (pickupClip != null)
+			AudioSource.PlayClipAtPoint (pickupClip, Vector3.zero);
 
 		return itemType;
 	}

@@ -10,6 +10,8 @@ public class WeaponDefault : Weapon
 	public int numberOfBullet = 1;
 	public float angleBetweenBullet = 0;
 	public float timeToFinish = 0f;
+	public AudioClip shootClip;
+	public float shootClipVolume = 0.5f;
 
 	[HideInInspector, System.NonSerialized]
 	public float initWeaponTime;
@@ -28,6 +30,9 @@ public class WeaponDefault : Weapon
 			Bullet bullet = ammunition.GetBullet ();
 			bullet.SetData (spawnPoint.position, Quaternion.AngleAxis(forwardAngle - offsetAngle + angleBetweenBullet * i, Vector3.up) * Vector3.forward);
 		}
+
+		if( shootClip )
+			AudioSource.PlayClipAtPoint (shootClip, Vector3.zero, shootClipVolume);
 
 		if (effectShoot != null)
 			effectShoot.Play ();

@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 300
-  damage: 80
+  damage: 100
   lifeDuration: 4
   damageRadius: 3
   damageMask:
@@ -110,6 +110,8 @@ MonoBehaviour:
     type: 2}
   trailParticleEffectPrefab: {fileID: 198504810762513932, guid: 948ff119f121341a6b7ebf28ac626a51,
     type: 2}
+  impactClip: {fileID: 8300000, guid: b1491c0e2c7ee2947920dd6525b78478, type: 3}
+  impactClipVolume: 1
 --- !u!135 &135024270522384536
 SphereCollider:
   m_ObjectHideFlags: 1

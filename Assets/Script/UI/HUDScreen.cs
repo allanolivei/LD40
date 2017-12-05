@@ -19,7 +19,7 @@ public class HUDScreen : MonoBehaviour
 		WeaponDefault weapon = player.currentWeapon as WeaponDefault;
 		if (weapon.timeToFinish > 0.1f) {
 			weaponBar.gameObject.SetActive (true);
-			weaponBar.SetValue (weapon.timeToFinish / (Time.time - weapon.initWeaponTime));
+			weaponBar.SetValue (1 - (Time.time - weapon.initWeaponTime) / weapon.timeToFinish);
 		} else {
 			weaponBar.gameObject.SetActive (false);
 		}

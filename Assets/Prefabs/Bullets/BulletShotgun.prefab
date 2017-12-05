@@ -101,10 +101,13 @@ MonoBehaviour:
   speed: 500
   damage: 40
   lifeDuration: 5
-  damageRadius: 0.8
+  damageRadius: 0.4
   damageMask:
     serializedVersion: 2
     m_Bits: 513
+  resistance: 1
+  explosionEffectPrefab: {fileID: 0}
+  trailParticleEffectPrefab: {fileID: 0}
 --- !u!135 &135024270522384536
 SphereCollider:
   m_ObjectHideFlags: 1
