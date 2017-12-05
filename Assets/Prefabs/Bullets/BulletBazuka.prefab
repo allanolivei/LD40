@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 300
-  damage: 100
+  damage: 110
   lifeDuration: 4
   damageRadius: 3
   damageMask:

@@ -994,7 +994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70edeb894419c5a448d41d299630e1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0.5
+  cooldown: 0.4
   ammunition: {fileID: 11400000, guid: 18d257e1f54c4604c9ea1e9c15600697, type: 2}
   spawnPoint: {fileID: 4260586402221382}
   effectShoot: {fileID: 198510306404517186}
@@ -1002,7 +1002,7 @@ MonoBehaviour:
   angleBetweenBullet: 0
   timeToFinish: 10
   shootClip: {fileID: 8300000, guid: c3fa36c686f55094aacb0806294cf571, type: 3}
-  shootClipVolume: 0.5
+  shootClipVolume: 2
   OnTimeFinish:
     m_PersistentCalls:
       m_Calls: []
@@ -1027,7 +1027,7 @@ MonoBehaviour:
   angleBetweenBullet: 10
   timeToFinish: 10
   shootClip: {fileID: 8300000, guid: 780e5549b6894924e988196a87a358c8, type: 3}
-  shootClipVolume: 0.5
+  shootClipVolume: 2
   OnTimeFinish:
     m_PersistentCalls:
       m_Calls: []
@@ -1054,6 +1054,7 @@ MonoBehaviour:
     type: 2}
   deapthEffectPrefab: {fileID: 198352163026374826, guid: 5cdb664353992c14191a44cfc897ed2e,
     type: 2}
+  damageClipVolume: 10
   damageClip: {fileID: 8300000, guid: 7d5cea65bf9a0ed44baf23a59d3d7905, type: 3}
   onDeath:
     m_PersistentCalls:
@@ -1079,7 +1080,7 @@ MonoBehaviour:
   angleBetweenBullet: 0
   timeToFinish: 0
   shootClip: {fileID: 8300000, guid: f6e2b33fa0fbc0443917f8db5646afcb, type: 3}
-  shootClipVolume: 0.1
+  shootClipVolume: 1
   OnTimeFinish:
     m_PersistentCalls:
       m_Calls: []
@@ -1104,7 +1105,7 @@ MonoBehaviour:
   angleBetweenBullet: 0
   timeToFinish: 10
   shootClip: {fileID: 8300000, guid: c8b47b42bf21a8c4ca947667ed5bdb94, type: 3}
-  shootClipVolume: 0.5
+  shootClipVolume: 2
   OnTimeFinish:
     m_PersistentCalls:
       m_Calls: []

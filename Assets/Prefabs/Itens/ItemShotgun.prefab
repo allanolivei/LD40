@@ -103,6 +103,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   pickupClip: {fileID: 8300000, guid: b19fd7bb8e5462d4087be629352f3089, type: 3}
+  pickupClipVolume: 3
 --- !u!212 &212346980836400380
 SpriteRenderer:
   m_ObjectHideFlags: 1

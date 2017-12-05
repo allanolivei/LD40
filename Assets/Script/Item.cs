@@ -19,6 +19,7 @@ public class Item : MonoBehaviour
 	public UnityEvent OnPickup;
 
 	public AudioClip pickupClip;
+	public float pickupClipVolume = 2.0f;
 
 	private Transform trans;
 
@@ -38,7 +39,7 @@ public class Item : MonoBehaviour
 		this.OnPickup.Invoke ();
 
 		if (pickupClip != null)
-			AudioSource.PlayClipAtPoint (pickupClip, Vector3.zero);
+			AudioSource.PlayClipAtPoint (pickupClip, Vector3.zero, pickupClipVolume);
 
 		return itemType;
 	}

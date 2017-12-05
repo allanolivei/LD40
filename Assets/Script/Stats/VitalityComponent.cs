@@ -16,6 +16,7 @@ public class VitalityComponent : MonoBehaviour
 	public ParticleSystem damageEffectPrefab;
 	public ParticleSystem deapthEffectPrefab;
 
+	public float damageClipVolume = 3.0f;
 	public AudioClip damageClip;
 
 	public UnityEvent onDeath;
@@ -52,7 +53,7 @@ public class VitalityComponent : MonoBehaviour
 				ParticleManager.GetInstance ().Show (damageEffectPrefab.name, position);
 
 			if (damageClip != null)
-				AudioSource.PlayClipAtPoint (damageClip, Vector3.zero);
+				AudioSource.PlayClipAtPoint (damageClip, Vector3.zero, damageClipVolume);
 
 			lastDamageEffectTime = Time.time;
 		}
