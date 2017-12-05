@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class ItemSpawner : MonoBehaviour 
 {
-	private static Collider[] nonAlloc = new Collider[1];
+	private static Collider[] nonAlloc = new Collider[10];
 
 	public Transform[] spawnersItem;
 	public Item[] itensPrefab;
@@ -48,9 +48,16 @@ public class ItemSpawner : MonoBehaviour
 		for (int i = 0; i < 5; i++) 
 		{
 			position = spawnersItem [Random.Range (0, spawnersItem.Length)].position;
-			int amount = Physics.OverlapSphereNonAlloc (position, 1.0f, nonAlloc);
-			if (amount <= 1) return true;
-		}
+            //for( int j = 0 ; j < itens.Count ; j++ )
+            //    if( Vector3.SqrMagnitude(itens[j].transform.position- )
+            int amount = Physics.OverlapSphereNonAlloc(position, 1.0f, nonAlloc);
+            bool hasItem = false;
+            for (int j = 0 ; j < amount ; j++)
+                if (nonAlloc[j].tag == "Item")
+                    hasItem = true;
+            if (!hasItem)
+                return true;
+        }
 			
 		return false;
 	}
