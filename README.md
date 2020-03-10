@@ -24,8 +24,6 @@ You will not want to step on the acid! The more you kill them, the worse the gam
 
 ![alt tag](https://static.jam.vg/raw/68c/e/z/cdf4.png)
 
-```
 <p align="center">
   <img width="460" height="300" src="https://static.jam.vg/raw/68c/e/z/c819.gif">
 </p>
-```
